@@ -6,7 +6,7 @@ namespace WeatherNotifierKafkaProducer.Weather
     {
         public void weatherInfo()
         {
-            getWeatherInfo();
+            getWeatherInfo("","");
         }
 
         private void getWeatherInfo(string latitutude, string longitude)
