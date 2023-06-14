@@ -1,17 +1,13 @@
-﻿using WeatherNotifierKafkaProducer.Utilities;
+﻿using WeatherNotifierKafkaProducer.IP;
+using WeatherNotifierKafkaProducer.Utilities;
 
 namespace WeatherNotifierKafkaProducer.Weather
 {
     public class RequestsWeather
     {
-        public void weatherInfo()
+        public void getWeatherInfo(InfoIP infoIp)
         {
-            getWeatherInfo("","");
-        }
-
-        private void getWeatherInfo(string latitutude, string longitude)
-        {
-            string endpoint = "https://api.open-meteo.com/v1/forecast?latitude=" + latitutude + "&longitude=" + longitude + "&hourly=precipitation_probability&current_weather=true";
+            string endpoint = "https://api.open-meteo.com/v1/forecast?latitude=" + infoIp.lat + "&longitude=" + infoIp.lon + "&hourly=precipitation_probability&current_weather=true";
             RequestManager.getRequest(endpoint);
         }
 
