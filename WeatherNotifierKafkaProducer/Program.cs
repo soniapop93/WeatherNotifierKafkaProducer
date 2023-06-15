@@ -1,4 +1,5 @@
 ﻿using WeatherNotifierKafkaProducer.IP;
+using WeatherNotifierKafkaProducer.Weather;
 
 public class Program
 {
@@ -25,7 +26,11 @@ public class Program
 
         RequestsIP requestsIP = new RequestsIP();
 
-        requestsIP.getIP();
+        InfoIP infoIp = requestsIP.getIP();
+
+        RequestsWeather requestsWeather = new RequestsWeather();
+
+        requestsWeather.getWeatherInfo(infoIp);
 
     }
 }
