@@ -30,7 +30,7 @@ public class Program
 
         RequestsWeather requestsWeather = new RequestsWeather();
 
-        requestsWeather.getWeatherInfo(infoIp);
+        List<PrecipitationProbability> precipitationProbabilities = requestsWeather.getWeatherInfo(infoIp);
 
     }
 }
