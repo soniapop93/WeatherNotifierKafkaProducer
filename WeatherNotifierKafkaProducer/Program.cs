@@ -1,9 +1,10 @@
 ﻿using WeatherNotifierKafkaProducer.IP;
+using WeatherNotifierKafkaProducer.Kafka;
 using WeatherNotifierKafkaProducer.Weather;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         /*
            =============================================================
@@ -24,13 +25,16 @@ public class Program
            =============================================================
         */
 
-        RequestsIP requestsIP = new RequestsIP();
+        //RequestsIP requestsIP = new RequestsIP();
 
-        InfoIP infoIp = requestsIP.getIP();
+        //InfoIP infoIp = requestsIP.getIP();
 
-        RequestsWeather requestsWeather = new RequestsWeather();
+        //RequestsWeather requestsWeather = new RequestsWeather();
 
-        List<PrecipitationProbability> precipitationProbabilities = requestsWeather.getWeatherInfo(infoIp);
+        //List<PrecipitationProbability> precipitationProbabilities = requestsWeather.getWeatherInfo(infoIp);
+
+        Producer producer = new Producer();
+        await producer.sendMessages("test 1");
 
     }
 }
