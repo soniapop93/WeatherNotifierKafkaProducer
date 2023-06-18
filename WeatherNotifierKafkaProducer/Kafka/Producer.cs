@@ -14,28 +14,18 @@ namespace WeatherNotifierKafkaProducer.Kafka
             BootstrapServers = "localhost:9092"
         };
 
-
+        private IProducer<Null, string> producer;
         private const string topicName = "test";
 
         public Producer()
         {
+            producer = new ProducerBuilder<Null, string>(config).Build();
         }
 
-        public async Task<string> sendMessages (string message)
+        public async Task sendMessages (string message)
         {
-            try
-            {
-                var producer = new ProducerBuilder<Null, string>(config).Build();
-
-                DeliveryResult<Null, string> sendMessage = await producer.ProduceAsync(topicName, new Message<Null, string> { Value = message });
-                Console.WriteLine("Message sent '{sendMessage.Value}' to '{sendMessage.TopicPartitionOffset}'");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            return "sdsd";
+            DeliveryResult<Null, string> sendMessage = await producer.ProduceAsync(topicName, new Message<Null, string> { Value = message });
+            Console.WriteLine("Message sent '{sendMessage.Value}' to '{sendMessage.TopicPartitionOffset}'");
         }
-        
     }
 }
