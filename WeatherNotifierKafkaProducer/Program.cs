@@ -1,4 +1,5 @@
-﻿using WeatherNotifierKafkaProducer.IP;
+﻿using WeatherNotifierKafkaProducer.Decisions;
+using WeatherNotifierKafkaProducer.IP;
 using WeatherNotifierKafkaProducer.Kafka;
 using WeatherNotifierKafkaProducer.Weather;
 
@@ -25,13 +26,29 @@ public class Program
            =============================================================
         */
 
-        //RequestsIP requestsIP = new RequestsIP();
+        RequestsIP requestsIP = new RequestsIP();
 
-        //InfoIP infoIp = requestsIP.getIP();
+        InfoIP infoIp = requestsIP.getIP();
 
-        //RequestsWeather requestsWeather = new RequestsWeather();
+        RequestsWeather requestsWeather = new RequestsWeather();
 
-        //List<PrecipitationProbability> precipitationProbabilities = requestsWeather.getWeatherInfo(infoIp);
+        ForecastAnalyser forecastAnalyser = new ForecastAnalyser();
+
+        DateTime lastTimeChecked = DateTime.Now.AddMinutes(-5);
+
+        while(true)
+        {
+            if (lastTimeChecked.AddMinutes(5) < DateTime.Now)
+            {
+                List<PrecipitationProbability> precipitationProbabilities = requestsWeather.getWeatherInfo(infoIp);
+
+                forecastAnalyser.checkForecast(precipitationProbabilities);
+                
+
+                lastTimeChecked = DateTime.Now;
+            }
+            
+        }
 
         Producer producer = new Producer();
         await producer.sendMessages("test 1");
