@@ -18,11 +18,39 @@ namespace WeatherNotifierKafkaProducer.Decisions
 
                 if (precipitationProbability.timestamp.Hour == DateTime.Now.Hour)
                 {
+                    PrecipitationProbability found = checkIfForecastExists(precipitationProbabilities[i]);
+                    if (found == null) 
+                    {
+                        precipitationProbabilitiesChecked.Add(precipitationProbability);
 
+                        //TODO: implement to send message
+                    }
+                    else
+                    {
+                        //TODO:
+                        if (found.probability != precipitationProbability.probability)
+                        {
+                            //TODO: implement to send message
+                            precipitationProbabilitiesChecked.Remove(found);
+                            precipitationProbabilitiesChecked.Add(precipitationProbability);
+                        }
+                    }
                 }
-                
 
+            }
 
-        } 
+        }
+
+        private PrecipitationProbability checkIfForecastExists(PrecipitationProbability precipitationProbability)
+        {
+            for (int i = 0; i < precipitationProbabilitiesChecked.Count; i++)
+            {
+                if (precipitationProbability.timestamp == precipitationProbabilitiesChecked[i].timestamp)
+                {
+                    return precipitationProbabilitiesChecked[i];
+                }
+            }
+            return null;
+        }
     }
 }
