@@ -44,10 +44,8 @@ public class Program
 
                 forecastAnalyser.checkForecast(precipitationProbabilities);
                 
-
                 lastTimeChecked = DateTime.Now;
             }
-            
         }
 
         Producer producer = new Producer();

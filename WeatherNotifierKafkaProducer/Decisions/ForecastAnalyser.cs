@@ -1,15 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using WeatherNotifierKafkaProducer.Kafka;
 using WeatherNotifierKafkaProducer.Weather;
 
 namespace WeatherNotifierKafkaProducer.Decisions
 {
     public class ForecastAnalyser
     {
-        List<PrecipitationProbability> precipitationProbabilitiesChecked = new List<PrecipitationProbability>();
+        private List<PrecipitationProbability> precipitationProbabilitiesChecked = new List<PrecipitationProbability>();
+
+        private Producer producer;
+
+        public ForecastAnalyser(Producer producer)
+        {
+            this.producer = producer;
+        }
+
         public void checkForecast(List<PrecipitationProbability> precipitationProbabilities)
         {
             for (int i = 0; i < precipitationProbabilities.Count; i++)
@@ -23,24 +27,20 @@ namespace WeatherNotifierKafkaProducer.Decisions
                     {
                         precipitationProbabilitiesChecked.Add(precipitationProbability);
 
-                        //TODO: implement to send message
+                        producer.sendMessages(""); //todo: implement message
                     }
                     else
                     {
-                        //TODO:
                         if (found.probability != precipitationProbability.probability)
                         {
-                            //TODO: implement to send message
                             precipitationProbabilitiesChecked.Remove(found);
                             precipitationProbabilitiesChecked.Add(precipitationProbability);
+                            producer.sendMessages(""); //todo: implement message
                         }
                     }
                 }
-
             }
-
         }
-
         private PrecipitationProbability checkIfForecastExists(PrecipitationProbability precipitationProbability)
         {
             for (int i = 0; i < precipitationProbabilitiesChecked.Count; i++)
