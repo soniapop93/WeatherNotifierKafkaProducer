@@ -20,14 +20,17 @@ namespace WeatherNotifierKafkaProducer.Decisions
             {
                 PrecipitationProbability precipitationProbability = precipitationProbabilities[i];
 
-                if (precipitationProbability.timestamp.Hour == DateTime.Now.Hour)
+                if ((precipitationProbability.timestamp.Year == DateTime.Now.Year) && 
+                    (precipitationProbability.timestamp.Month == DateTime.Now.Month) && 
+                    (precipitationProbability.timestamp.Day == DateTime.Now.Day) && 
+                    (precipitationProbability.timestamp.Hour == DateTime.Now.Hour))
                 {
                     PrecipitationProbability found = checkIfForecastExists(precipitationProbabilities[i]);
                     if (found == null) 
                     {
                         precipitationProbabilitiesChecked.Add(precipitationProbability);
-
-                        producer.sendMessages(""); //todo: implement message
+                        producer.sendMessages(precipitationProbability.ToString());
+                        break;
                     }
                     else
                     {
@@ -35,7 +38,8 @@ namespace WeatherNotifierKafkaProducer.Decisions
                         {
                             precipitationProbabilitiesChecked.Remove(found);
                             precipitationProbabilitiesChecked.Add(precipitationProbability);
-                            producer.sendMessages(""); //todo: implement message
+                            producer.sendMessages(precipitationProbability.ToString());
+                            break;
                         }
                     }
                 }

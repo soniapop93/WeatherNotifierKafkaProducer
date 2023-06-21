@@ -1,4 +1,6 @@
-﻿namespace WeatherNotifierKafkaProducer.Weather
+﻿using System.Text.Json;
+
+namespace WeatherNotifierKafkaProducer.Weather
 {
     public class PrecipitationProbability
     {
@@ -9,6 +11,11 @@
         {
             this.timestamp = DateTime.Parse(timestamp);
             this.probability = probability;
+        }
+
+        public override string? ToString()
+        {
+            return JsonSerializer.Serialize(this);
         }
     }
 }

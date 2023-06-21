@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Confluent.Kafka;
-using System.Net;
-using System.ComponentModel;
+﻿using Confluent.Kafka;
 
 namespace WeatherNotifierKafkaProducer.Kafka
 {

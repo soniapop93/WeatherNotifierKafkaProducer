@@ -27,29 +27,25 @@ public class Program
         */
 
         RequestsIP requestsIP = new RequestsIP();
+        Producer producer = new Producer();
+        RequestsWeather requestsWeather = new RequestsWeather();
 
         InfoIP infoIp = requestsIP.getIP();
 
-        RequestsWeather requestsWeather = new RequestsWeather();
-
-        ForecastAnalyser forecastAnalyser = new ForecastAnalyser();
+        ForecastAnalyser forecastAnalyser = new ForecastAnalyser(producer);
 
         DateTime lastTimeChecked = DateTime.Now.AddMinutes(-5);
 
-        while(true)
+        while (true)
         {
             if (lastTimeChecked.AddMinutes(5) < DateTime.Now)
             {
                 List<PrecipitationProbability> precipitationProbabilities = requestsWeather.getWeatherInfo(infoIp);
 
                 forecastAnalyser.checkForecast(precipitationProbabilities);
-                
+
                 lastTimeChecked = DateTime.Now;
             }
         }
-
-        Producer producer = new Producer();
-        await producer.sendMessages("test 1");
-
     }
 }
