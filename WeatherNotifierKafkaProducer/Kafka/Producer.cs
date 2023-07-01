@@ -10,7 +10,7 @@ namespace WeatherNotifierKafkaProducer.Kafka
         };
 
         private IProducer<Null, string> producer;
-        private const string topicName = "test";
+        private const string topicName = "weather";
 
         public Producer()
         {
