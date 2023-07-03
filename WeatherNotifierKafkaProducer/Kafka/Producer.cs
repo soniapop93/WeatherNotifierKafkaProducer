@@ -4,17 +4,20 @@ namespace WeatherNotifierKafkaProducer.Kafka
 {
     public class Producer
     {
-        ProducerConfig config = new ProducerConfig
-        {
-            BootstrapServers = "localhost:9092"
-        };
+
 
         private IProducer<Null, string> producer;
-        private const string topicName = "weather";
-
-        public Producer()
+        private string topicName;
+        
+        public Producer(Config kafkaConfig)
         {
+
+            ProducerConfig config = new ProducerConfig
+            {
+                BootstrapServers = kafkaConfig.server
+            };
             producer = new ProducerBuilder<Null, string>(config).Build();
+            topicName = kafkaConfig.topic;
         }
 
         public async Task sendMessages (string message)

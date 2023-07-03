@@ -2,6 +2,8 @@
 using WeatherNotifierKafkaProducer.IP;
 using WeatherNotifierKafkaProducer.Kafka;
 using WeatherNotifierKafkaProducer.Weather;
+using System.Text.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 public class Program
 {
@@ -26,8 +28,10 @@ public class Program
            =============================================================
         */
 
+        Config kafkaConfig = JsonSerializer.Deserialize<Config>(File.ReadAllText("kafka_config.json"));
+
         RequestsIP requestsIP = new RequestsIP();
-        Producer producer = new Producer();
+        Producer producer = new Producer(kafkaConfig);
         RequestsWeather requestsWeather = new RequestsWeather();
 
         InfoIP infoIp = requestsIP.getIP();
