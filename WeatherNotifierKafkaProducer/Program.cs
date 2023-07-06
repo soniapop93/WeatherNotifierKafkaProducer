@@ -3,7 +3,6 @@ using WeatherNotifierKafkaProducer.IP;
 using WeatherNotifierKafkaProducer.Kafka;
 using WeatherNotifierKafkaProducer.Weather;
 using System.Text.Json;
-using static System.Net.Mime.MediaTypeNames;
 
 public class Program
 {

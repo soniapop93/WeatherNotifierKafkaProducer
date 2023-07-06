@@ -4,8 +4,6 @@ namespace WeatherNotifierKafkaProducer.Kafka
 {
     public class Producer
     {
-
-
         private IProducer<Null, string> producer;
         private string topicName;
         
